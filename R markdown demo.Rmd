@@ -1,0 +1,137 @@
+---
+title: "Us police shooting dataset"
+author: Rowan tarek 
+output: html_document
+---
+
+
+
+### data description
+
+The us-police-shootings data set is collected to take some insights and analyze the story about racism in America by kaggle was taken from this URL **https://www.kaggle.com/ahsen1330/us-police-shootings**
+the data set includes 15 variables :
+
+**id**: integer variable  showing Identity number.
+
+**name** : character variable identify the name.
+
+**date** : character variable containing the day of event.
+
+**manner_of_death** :character variable show How they were killed.
+
+**armed**:variables shows Weapons.
+
+**age**:numerical variable shows age of shot person.
+
+**gender**: ordinal  character variable showing the gender of shot person.
+
+**race** : character variable identify race of shot person.
+
+**city** :character variable identify Location (City) of event.
+
+**state** :character variable identify Location (State) of event.
+
+**signs_of_mental_illness** : character variable indicate whether there were signs of mental illness. 
+
+**threat_level** :character variable identify the level of threats.
+
+**flee** : character variable identify whither the person escape .
+
+**body_camera** : character variable indicate whether policeman had body camera
+
+**arms_category** :character variable to indicateif the person was armed
+
+
+
+### Read/Import Data
+
+-   read.csv() function is used to read this data and data was named as mydataset.
+
+-   head()function is used to show the head output of data 
+
+```{r}
+mydataset<-read.csv("us-police-shootings.csv")
+head(mydataset)
+
+```
+
+### inspect and Understand
+
+-   variables were inspected using (ls)function.
+
+-   dimensions of the data frame was checked using dim() function.
+
+-   the types of of variables were summarized using summary()function
+
+-   Data types of the variables were checked and they are in the correct format and also the levels of factor variables were checked using str()function .
+
+-   column names were checked and column [13] was renamed from "flee" to "escape" using names()function.
+
+-   the final structure and the data type of the data was given using str()function.
+
+
+```{r}
+ls(mydataset) 
+dim(mydataset)
+summary(mydataset)
+str(mydataset)
+names(mydataset)
+names(mydataset)[13] <- "escape"
+str(mydataset)
+
+```
+
+### Subsetting
+
+-   the first 10 observations (include all variables) in data set were selected using subset()function 
+
+-   then this subset was converted to a matrix using as.matrix() function.
+
+-   the structure of that matrix was checked using str()function
+
+```{r}
+subset<-mydataset[1:10,]
+subset
+the_matrix<- as.matrix(subset)
+the_matrix
+str(the_matrix)
+
+```
+
+
+### Create a New Data frame
+
+-   A new data frame was created from scratch with the given specifications (one integer variable and one ordinal variable and 10 observations) using data.frame() function .
+
+-   the variable definition are given below :
+**Patient_ID**: String variable identify the ID of patients in Doctor clinic
+**Extent_of_satisfaction** :ordinal  character variable showing the satisfaction level of patient toward the clinic and the doctor 
+
+-   new variable the_shift is created using cbind() function then this vector added to the data frame 
+
+
+-   the attributes of the resulting data frame was checked using attributes() function .
+
+-   dimensions of the data set is checked using dim()
+
+```{r}
+Patient_ID<-c(1,12,105,3,108,104,407,156,189,111)
+Extent_of_satisfaction <-c("Indifferent","dissatisfied","Satisfied","Very satisfied ","Satisfied","Indifferent","Dissatisfied ","Satisfied","Very dissatisfied","Satisfied")
+
+df<-data.frame(Patient_ID,Extent_of_satisfaction)
+df
+class(df)
+factor_satisfaction<-factor(df$Extent_of_satisfaction)
+Extent_of_satisfaction <- factor(Extent_of_satisfaction,ordered = TRUE,levels =c("Very satisfied","Satisfied","Indifferent","Dissatisfied","Very dissatisfied"))
+Extent_of_satisfaction
+str(df)
+
+the_shift <-c("night","day","night","night","day","night","day","night","night","day")
+new_df<-df
+new_df <- cbind(df, the_shift = the_shift)
+new_df
+attributes(new_df)
+dim(new_df)
+
+                                     
+```
